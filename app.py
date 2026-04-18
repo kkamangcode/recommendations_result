@@ -8,19 +8,20 @@ places = [
     {"이름": "춘천 애니메이션 박물관", "지역": "춘천", "실내여부": "실내", "예산": 7000, "한줄설명": "애니메이션의 역사자료와 작품을 체험해 볼 수 있는 곳"}
 ]
 
-def get_recommendations(data, region, indoor):
+def get_recommendations(data, region, indoor, budget):
     result = []
     for place in data:
-        if place["지역"] == region and place["실내여부"] == indoor:
+        if place["지역"] == region and place["실내여부"] == indoor and place["예산"]<=budget:
             result.append(place)
     return result
 
 st.title("**강원 청소년 생활 도우미**")
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천", "홍천", "고성", "인제"])
 selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
+selected_budget = st.number_input("예산을 입력해 주세요",min_value=0)
 
 if st.button("추천 보기"):
-    recommendations = get_recommendations(places, selected_region, selected_indoor)
+    recommendations = get_recommendations(places, selected_region, selected_indoor, selected_budget)
 
     if len(recommendations) == 0:
         st.write("조건에 맞는 장소가 없습니다")
@@ -28,5 +29,5 @@ if st.button("추천 보기"):
         for place in recommendations:
             st.write(place["이름"])
             st.write(place["한줄설명"])
-            st.write("필요한 예산은",place["예산"],"입니다")
+            st.write("필요한 예산은",place["예산"],"원 입니다")
             st.write("---")
