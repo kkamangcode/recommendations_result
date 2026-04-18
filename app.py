@@ -14,7 +14,7 @@ def get_recommendations(data, region, indoor):
             result.append(place)
     return result
 
-st.title("강원 청소년 생활 도우미")
+st.title("**강원 청소년 생활 도우미**")
 selected_region = st.selectbox("지역을 선택하세요", ["강릉", "속초", "춘천"])
 selected_indoor = st.radio("실내 여부를 선택하세요", ["실내", "실외"])
 
